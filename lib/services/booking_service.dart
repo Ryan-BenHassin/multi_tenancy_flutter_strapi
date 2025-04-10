@@ -4,15 +4,15 @@ import 'http_client.dart';
 class BookingService {
   final _httpClient = HttpClient();
 
-  Future<List<DateTime>> fetchAvailableDatetimes(String complexId) async {
-    final response = await _httpClient.get('${AuthService.baseUrl}/available-datetimes/$complexId');
+  Future<List<DateTime>> fetchAvailableDatetimes(String officeId) async {
+    final response = await _httpClient.get('${AuthService.baseUrl}/available-datetimes/$officeId');
     List<dynamic> data = response['data'] ?? [];
     return data.map((dateStr) => DateTime.parse(dateStr.toString())).toList();
   }
 
   Future<bool> createReservation({
     required int userID,
-    required int complexId,
+    required int officeId,
     required DateTime dateTime
   }) async {
     try {
@@ -21,7 +21,7 @@ class BookingService {
         body: {
           'data': {
             'date': dateTime.toUtc().toIso8601String(),
-            'complex': {'id': complexId},
+            'office': {'id': officeId},
             'user': {'id': userID},
           }
         },
@@ -35,7 +35,7 @@ class BookingService {
 
   Future<List<Map<String, dynamic>>> fetchUserBookings({required int userID}) async {
     final data = await _httpClient.get(
-      '${AuthService.baseUrl}/reservations?populate=complex&filters[user][id][\$eq]=$userID'
+      '${AuthService.baseUrl}/reservations?populate=office&filters[user][id][\$eq]=$userID'
     );
     return List<Map<String, dynamic>>.from(data['data'] ?? []);
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
-import 'auth/login_screen.dart';
 import '../main.dart';
-import '../providers/user_provider.dart';
+import 'auth/login_screen.dart';
+import 'auth/complete_profile_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,42 +12,49 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final _authService = AuthService();
+
   @override
   void initState() {
     super.initState();
-    _checkAuth();
+    _checkAuthAndProfile();
   }
 
-  Future<void> _checkAuth() async {
-    final authService = AuthService();
-    await Future.delayed(const Duration(seconds: 2)); // Splash display duration
-    if (!mounted) return;
-    
+  Future<void> _checkAuthAndProfile() async {
     try {
-      final isLoggedIn = await authService.isAuthenticated();
-      if (isLoggedIn) {
-        try {
-          final userData = await authService.getCurrentUser();
-          UserProvider.user = userData;
-          if (!mounted) return;
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const MyHomePage()),
-          );
-        } catch (e) {
-          print('Error fetching user data: $e');
-          _redirectToLogin();
-        }
+      final isAuthenticated = await _authService.isAuthenticated();
+      if (!isAuthenticated) {
+        _navigateToLogin();
+        return;
+      }
+
+      final user = await _authService.getCompleteUserData();
+      
+      if (!mounted) return;
+
+      if ((user.roleType == 'DOCTOR' && user.doctor == null) ||
+          (user.roleType == 'PATIENT' && user.patient == null)) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CompleteProfileScreen(
+              userId: user.id,
+              roleType: user.roleType,
+            ),
+          ),
+        );
       } else {
-        _redirectToLogin();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomePage()),
+        );
       }
     } catch (e) {
-      print('Auth check error: $e');
-      _redirectToLogin();
+      _navigateToLogin();
     }
   }
 
-  void _redirectToLogin() {
+  void _navigateToLogin() {
     if (!mounted) return;
     Navigator.pushReplacement(
       context,
@@ -59,14 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FlutterLogo(size: 100),
-            SizedBox(height: 24),
-            CircularProgressIndicator(),
-          ],
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }

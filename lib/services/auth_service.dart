@@ -15,43 +15,106 @@ class AuthService {
   final _httpClient = HttpClient();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/local'),
-      body: {
-        'identifier': email,
-        'password': password,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      await _saveUserData(data);
-      UserProvider.user = data['user'];
-      return data;
-    } else {
+    try {
+      final response = await _httpClient.postWithoutAuth(
+        '$baseUrl/auth/local',
+        body: {
+          'identifier': email,
+          'password': password,
+        },
+      );
+      
+      await _saveUserData(response);
+      return response;
+    } catch (e) {
+      print('Login error: $e');
       throw Exception('Failed to login');
     }
   }
 
-  Future<Map<String, dynamic>> register(String email, String password, String firstname, String lastname, String phone) async {
-    final response = await http.post(
-      Uri.parse('$baseUrl/auth/local/register'),
-      body: {
-        'username': email,
-        'email': email,
-        'password': password,
-        'firstname': firstname,
-        'lastname': lastname,
-        'phone': phone,
-      },
-    );
+  Future<User> getCompleteUserData() async {
+    try {
+      final userData = await _httpClient.get('$baseUrl/users/me?populate=*');
+      print('Complete user data: $userData'); // For debugging
+      final user = User.fromJson(userData);
+      UserProvider.user = user;
+      return user;
+    } catch (e) {
+      print('Error getting complete user data: $e');
+      throw Exception('Failed to fetch user data');
+    }
+  }
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      await _saveUserData(data);
-      return data;
-    } else {
-      throw Exception('Failed to register');
+  Future<Map<String, dynamic>> register(String email, String password, String firstname, 
+      String lastname, String phone, String roleType) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/auth/local/register'),
+        body: {
+          'username': email,
+          'email': email,
+          'password': password,
+          'firstname': firstname,
+          'lastname': lastname,
+          'phone': phone,
+          'roleType': roleType,
+        },
+      );
+
+      print('Registration response status: ${response.statusCode}');
+      print('Registration response body: ${response.body}');
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        final data = json.decode(response.body);
+        await _saveUserData(data);
+        return data;
+      } else {
+        final errorData = json.decode(response.body);
+        throw Exception('Registration failed: ${errorData['error']['message'] ?? 'Unknown error'}');
+      }
+    } catch (e) {
+      print('Registration error: $e');
+      throw Exception('Registration failed: $e');
+    }
+  }
+
+  Future<void> createDoctorProfile({
+    required int userId,
+    required String speciality,
+  }) async {
+    try {
+      await _httpClient.post(
+        '$baseUrl/doctors',
+        body: {
+          'data': {
+            'users_permissions_user': userId,
+            'speciality': speciality,
+          }
+        },
+      );
+    } catch (e) {
+      print('Error creating doctor: $e');
+      throw Exception('Failed to create doctor profile');
+    }
+  }
+
+  Future<void> createPatientProfile({
+    required int userId,
+    required DateTime birthdate,
+  }) async {
+    try {
+      await _httpClient.post(
+        '$baseUrl/patients',
+        body: {
+          'data': {
+            'users_permissions_user': userId,
+            'birthdate': birthdate.toIso8601String(),
+          }
+        },
+      );
+    } catch (e) {
+      print('Error creating patient: $e');
+      throw Exception('Failed to create patient profile');
     }
   }
 
@@ -66,7 +129,8 @@ class AuthService {
     }
 
     try {
-      final response = await _httpClient.get('$baseUrl/users/me');
+      final response = await _httpClient.get('$baseUrl/users/me?populate=doctor,patient');
+      print('Current user response: $response'); // For debugging
       final user = User.fromJson(response);
       UserProvider.user = user;
       return user;

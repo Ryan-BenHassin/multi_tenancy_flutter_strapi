@@ -37,6 +37,19 @@ class HttpClient {
     throw Exception('Request failed with status: ${response.statusCode}');
   }
 
+  Future<dynamic> postWithoutAuth(String url, {Map<String, dynamic>? body}) async {
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: body != null ? json.encode(body) : null,
+    );
+    
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return json.decode(response.body);
+    }
+    throw Exception('Request failed with status: ${response.statusCode}');
+  }
+
   Future<dynamic> put(String url, {Map<String, dynamic>? body}) async {
     final headers = await _getHeaders();
     final response = await http.put(

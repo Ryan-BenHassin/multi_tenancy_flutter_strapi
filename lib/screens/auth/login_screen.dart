@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_user/screens/auth/complete_profile_screen.dart';
 import '../../main.dart';
 import 'signup_screen.dart';
 import '../../services/auth_service.dart';
@@ -22,15 +23,36 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
+        // First login to get token
         await _authService.login(
           _emailController.text,
           _passwordController.text,
         );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const MyHomePage()),
-        );
+        
+        // Then get complete user data including doctor/patient profiles
+        final user = await _authService.getCompleteUserData();
+        
+        if (!mounted) return;
+
+        if ((user.roleType == 'DOCTOR' && user.doctor == null) ||
+            (user.roleType == 'PATIENT' && user.patient == null)) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CompleteProfileScreen(
+                userId: user.id,
+                roleType: user.roleType,
+              ),
+            ),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const MyHomePage()),
+          );
+        }
       } catch (e) {
+        if (!mounted) return;
         showFlushBar(context, message: 'Failed to login', success: false);
       } finally {
         setState(() => _isLoading = false);

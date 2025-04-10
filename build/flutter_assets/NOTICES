@@ -8546,7 +8546,7 @@ Portions of this software are derived from third-party works licensed
 under terms compatible with the above MIT license:
 
 Much of the math library code (third_party/math/* and
-third_party/complex/*, and third_party/include/libm.h) is
+third_party/office/*, and third_party/include/libm.h) is
 Copyright © 1993,2004 Sun Microsystems or
 Copyright © 2003-2011 David Schultz or
 Copyright © 2003-2009 Steven G. Kargl or

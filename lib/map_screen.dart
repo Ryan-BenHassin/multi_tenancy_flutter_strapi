@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'models/complex.dart';
-import 'services/complex_service.dart';
+import 'models/office.dart';
+import 'services/office_service.dart';
 import 'widgets/booking_dialog.dart';
 import 'utils/showFlushbar.dart';
 
@@ -15,14 +15,14 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   MapController mapController = MapController();
   LatLng? currentLocation;
-  List<Complex> complexes = [];
-  final ComplexService _complexService = ComplexService();
+  List<Office> offices = [];
+  final OfficeService _officeService = OfficeService();
 
   @override
   void initState() {
     super.initState();
     _requestLocationPermission();
-    _loadComplexes();
+    _loadOffices();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // _goToMyLocation();
     });
@@ -55,18 +55,18 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  Future<void> _loadComplexes() async {
+  Future<void> _loadOffices() async {
     try {
-      final loadedComplexes = await _complexService.fetchComplexes();
+      final loadedOffices = await _officeService.fetchOffices();
       setState(() {
-        complexes = loadedComplexes;
+        offices = loadedOffices;
       });
     } catch (e) {
-      print('Error loading complexes: $e');
+      print('Error loading offices: $e');
       if (!mounted) return;
       showFlushBar(
         context,
-        message: 'Failed to load complexes. Please check your connection.',
+        message: 'Failed to load offices. Please check your connection.',
         success: false,
         fromBottom: false,
       );
@@ -83,20 +83,20 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
-  void _showComplexDetails(Complex complex) {
+  void _showOfficeDetails(Office office) {
     showDialog(
       barrierColor: Colors.black.withOpacity(0.8),
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(complex.name),
-        content: Text(complex.description ?? 'No description available'),
+        title: Text(office.name),
+        content: Text(office.description ?? 'No description available'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text('Close'),
           ),
           TextButton(
-            onPressed: () => _showBookingDialog(complex),
+            onPressed: () => _showBookingDialog(office),
             child: Text('Book'),
           ),
         ],
@@ -104,11 +104,11 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  void _showBookingDialog(Complex complex) {
+  void _showBookingDialog(Office office) {
     showDialog(
       context: context,
       builder: (context) => BookingDialog(
-        complex: complex,
+        office: office,
         // bookingService: _bookingService,
       ),
     );
@@ -117,7 +117,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Complexes Map')),
+      appBar: AppBar(title: const Text('Offices Map')),
       body: FlutterMap(
         mapController: mapController,
         options: MapOptions(
@@ -141,16 +141,16 @@ class _MapScreenState extends State<MapScreen> {
                   height: 80,
                   builder: (context) => Icon(Icons.my_location_rounded, color: Colors.blue, size: 40),
                 ),
-              // Add markers for complexes
-              ...complexes.map(
-                (complex) => Marker(
-                  point: LatLng(complex.latitude, complex.longitude),
+              // Add markers for offices
+              ...offices.map(
+                (office) => Marker(
+                  point: LatLng(office.latitude, office.longitude),
                   width: 80,
                   height: 80,
                   builder: (context) => GestureDetector(
-                    onTap: () => _showComplexDetails(complex),
+                    onTap: () => _showOfficeDetails(office),
                     child: Tooltip(
-                      message: '${complex.name}\n${complex.description ?? ""}',
+                      message: '${office.name}\n${office.description ?? ""}',
                       child: Icon(Icons.location_on_sharp, color: Colors.red, size: 50),
                     ),
                   ),

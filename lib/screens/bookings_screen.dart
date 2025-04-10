@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mapbox_first/services/booking_service.dart';
+import 'package:multi_user/services/booking_service.dart';
 import 'package:intl/intl.dart';
 import '../utils/showFlushbar.dart';
 import '../providers/user_provider.dart';
@@ -66,11 +66,11 @@ class _BookingsScreenState extends State<BookingsScreen> {
                         }
                         
                         final formattedDate = DateFormat('MMM d, y - HH:mm').format(date);
-                        final complex = booking['complex'] ?? {};
+                        final office = booking['office'] ?? {};
                         final status = booking['state'] ?? 'PENDING';
                         
                         return ListTile(
-                          title: Text(complex['title'] ?? 'Unknown Complex'),
+                          title: Text(office['title'] ?? 'Unknown Office'),
                           subtitle: Text(formattedDate),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,

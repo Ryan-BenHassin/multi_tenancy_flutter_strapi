@@ -1,4 +1,4 @@
-# mapbox_first
+# multi_user
 
 A new Flutter project.
 

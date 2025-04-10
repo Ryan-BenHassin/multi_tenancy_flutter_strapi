@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.multi_user.app-mergeDebugResources-43:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.multi_user.app-mergeDebugResources-44:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/Ryan/tutoring/carthage_academy/stadium_booking_example/android/app/src/main/res/values-night/styles.xml",
+                    "source": "/Users/Ryan/tutoring/carthage_academy/multi_user/android/app/src/main/res/values-night/styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/Ryan/.gradle/caches/transforms-3/59429a3377c99d4329816290f59620dc/transformed/appcompat-1.1.0/res/values-night-v8/values-night-v8.xml",
+                    "source": "/Users/Ryan/.gradle/caches/transforms-3/3a04377ab98aaf9189ccddcb951bae89/transformed/appcompat-1.1.0/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

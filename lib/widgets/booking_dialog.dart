@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:another_flushbar/flushbar.dart';
-import '../models/complex.dart';
+import '../models/office.dart';
 import '../services/booking_service.dart';
 import '../providers/user_provider.dart';
 
 class BookingDialog extends StatefulWidget {
-  final Complex complex;
+  final Office office;
 
   const BookingDialog({
     Key? key,
-    required this.complex,
+    required this.office,
   }) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class _BookingDialogState extends State<BookingDialog> {
   // Load available dates and times from server
   Future<void> _loadAvailableDatetimes() async {
     try {
-      final datetimes = await _bookingService.fetchAvailableDatetimes(widget.complex.documentId);
+      final datetimes = await _bookingService.fetchAvailableDatetimes(widget.office.documentId);
       setState(() {
         _dateTimeMap = _createDateTimeMap(datetimes);
       });
@@ -136,7 +136,7 @@ class _BookingDialogState extends State<BookingDialog> {
 
       final success = await _bookingService.createReservation(
         userID: UserProvider.user!.id,
-        complexId: widget.complex.id,
+        officeId: widget.office.id,
         dateTime: dateTime,
       );
 
@@ -178,7 +178,7 @@ class _BookingDialogState extends State<BookingDialog> {
           children: [
             // Title
             Text(
-              'Book ${widget.complex.name}',
+              'Book ${widget.office.name}',
               style: Theme.of(context).textTheme.titleLarge,
             ),
             SizedBox(height: 16),
