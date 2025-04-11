@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_user/screens/auth/complete_profile_screen.dart';
+import 'package:mapbox_first/screens/auth/complete_profile_screen.dart';
 import '../../main.dart';
 import 'signup_screen.dart';
 import '../../services/auth_service.dart';

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.multi_user.app-mergeDebugResources-44:/values-port/values-port.xml",
+            "outputFile": "com.example.mapbox_first.app-mergeDebugResources-44:/values-port/values-port.xml",
             "map": [
                 {
                     "source": "/Users/Ryan/.gradle/caches/transforms-3/3a04377ab98aaf9189ccddcb951bae89/transformed/appcompat-1.1.0/res/values-port/values-port.xml",

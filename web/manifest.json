@@ -1,6 +1,6 @@
 {
-    "name": "multi_user",
-    "short_name": "multi_user",
+    "name": "mapbox_first",
+    "short_name": "mapbox_first",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

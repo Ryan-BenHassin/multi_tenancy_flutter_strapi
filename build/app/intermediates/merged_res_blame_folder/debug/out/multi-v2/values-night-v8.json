@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.multi_user.app-mergeDebugResources-44:/values-night-v8/values-night-v8.xml",
+            "outputFile": "com.example.mapbox_first.app-mergeDebugResources-44:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
                     "source": "/Users/Ryan/tutoring/carthage_academy/multi_user/android/app/src/main/res/values-night/styles.xml",
