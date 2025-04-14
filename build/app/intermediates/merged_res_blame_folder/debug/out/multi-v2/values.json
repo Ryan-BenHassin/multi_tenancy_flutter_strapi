@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.multi_user.app-mergeDebugResources-44:/values/values.xml",
+            "outputFile": "com.example.mapbox_first.app-mergeDebugResources-44:/values/values.xml",
             "map": [
                 {
                     "source": "/Users/Ryan/.gradle/caches/transforms-3/010887bb3359843376c02ecf4bf2ef43/transformed/jetified-savedstate-1.2.1/res/values/values.xml",

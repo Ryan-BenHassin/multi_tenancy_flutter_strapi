@@ -572,13 +572,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "multi_user",
+      "name": "mapbox_first",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2025-04-10T17:14:16.528624Z",
+  "generated": "2025-04-10T20:16:41.064695Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/Ryan/dev/flutter",

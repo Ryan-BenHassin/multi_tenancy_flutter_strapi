@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:multi_user/screens/bookings_screen.dart';
-import 'package:multi_user/screens/splash_screen.dart';
-import 'screens/profile_screen.dart';
 import 'map_screen.dart';
+import 'screens/bookings_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/chat/chat_list_screen.dart';
+import 'services/firebase_service.dart';
 
-void main() {
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+void main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await FirebaseService().initialize();
+  } catch (e) {
+    print('Firebase initialization error: $e');
+    // Continue with the app even if Firebase fails
+  }
   runApp(const MyApp());
 }
 
@@ -14,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       title: 'Your App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -24,7 +36,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({super.key,});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -41,6 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         return BookingsScreen();
       case 2:
+        return ChatListScreen();
+      case 3:
         return const ProfileScreen();
       default:
         return MapScreen();
@@ -61,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;
@@ -80,6 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: 'Bookings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

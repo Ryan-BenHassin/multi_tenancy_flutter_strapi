@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_user/services/booking_service.dart';
+import 'package:mapbox_first/services/booking_service.dart';
 import 'package:intl/intl.dart';
 import '../utils/showFlushbar.dart';
 import '../providers/user_provider.dart';

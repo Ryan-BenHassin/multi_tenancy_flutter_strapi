@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.multi_user"
+3    package="com.example.mapbox_first"
 4    android:versionCode="1"
 5    android:versionName="1.0.0" >
 6
@@ -57,12 +57,12 @@
 37
 38    <permission
 38-->[androidx.core:core:1.13.1] /Users/Ryan/.gradle/caches/transforms-3/c666c258fca39b3353b46678a6b928ab/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-39        android:name="com.example.multi_user.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+39        android:name="com.example.mapbox_first.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
 39-->[androidx.core:core:1.13.1] /Users/Ryan/.gradle/caches/transforms-3/c666c258fca39b3353b46678a6b928ab/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 40        android:protectionLevel="signature" />
 40-->[androidx.core:core:1.13.1] /Users/Ryan/.gradle/caches/transforms-3/c666c258fca39b3353b46678a6b928ab/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 41
-42    <uses-permission android:name="com.example.multi_user.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+42    <uses-permission android:name="com.example.mapbox_first.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 42-->[androidx.core:core:1.13.1] /Users/Ryan/.gradle/caches/transforms-3/c666c258fca39b3353b46678a6b928ab/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
 42-->[androidx.core:core:1.13.1] /Users/Ryan/.gradle/caches/transforms-3/c666c258fca39b3353b46678a6b928ab/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 43
@@ -73,9 +73,9 @@
 47        android:debuggable="true"
 48        android:extractNativeLibs="true"
 49        android:icon="@mipmap/ic_launcher"
-50        android:label="multi_user" >
+50        android:label="mapbox_first" >
 51        <activity
-52            android:name="com.example.multi_user.MainActivity"
+52            android:name="com.example.mapbox_first.MainActivity"
 53            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
 54            android:exported="true"
 55            android:hardwareAccelerated="true"
@@ -231,7 +231,7 @@
 147-->[:firebase_messaging] /Users/Ryan/tutoring/carthage_academy/multi_user/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:41:9-45:38
 148            android:name="io.flutter.plugins.firebase.messaging.FlutterFirebaseMessagingInitProvider"
 148-->[:firebase_messaging] /Users/Ryan/tutoring/carthage_academy/multi_user/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:42:13-102
-149            android:authorities="com.example.multi_user.flutterfirebasemessaginginitprovider"
+149            android:authorities="com.example.mapbox_first.flutterfirebasemessaginginitprovider"
 149-->[:firebase_messaging] /Users/Ryan/tutoring/carthage_academy/multi_user/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:43:13-88
 150            android:exported="false"
 150-->[:firebase_messaging] /Users/Ryan/tutoring/carthage_academy/multi_user/build/firebase_messaging/intermediates/merged_manifest/debug/AndroidManifest.xml:44:13-37
@@ -317,7 +317,7 @@
 196-->[com.google.firebase:firebase-common:21.0.0] /Users/Ryan/.gradle/caches/transforms-3/abd144767df15dffddd52de2fe329b95/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
 197            android:name="com.google.firebase.provider.FirebaseInitProvider"
 197-->[com.google.firebase:firebase-common:21.0.0] /Users/Ryan/.gradle/caches/transforms-3/abd144767df15dffddd52de2fe329b95/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:24:13-77
-198            android:authorities="com.example.multi_user.firebaseinitprovider"
+198            android:authorities="com.example.mapbox_first.firebaseinitprovider"
 198-->[com.google.firebase:firebase-common:21.0.0] /Users/Ryan/.gradle/caches/transforms-3/abd144767df15dffddd52de2fe329b95/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:25:13-72
 199            android:directBootAware="true"
 199-->[com.google.firebase:firebase-common:21.0.0] /Users/Ryan/.gradle/caches/transforms-3/abd144767df15dffddd52de2fe329b95/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:26:13-43
@@ -337,7 +337,7 @@
 207-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/Ryan/.gradle/caches/transforms-3/5d9083683aa46ad6646ca7a884bd56df/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:24:9-32:20
 208            android:name="androidx.startup.InitializationProvider"
 208-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/Ryan/.gradle/caches/transforms-3/5d9083683aa46ad6646ca7a884bd56df/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:25:13-67
-209            android:authorities="com.example.multi_user.androidx-startup"
+209            android:authorities="com.example.mapbox_first.androidx-startup"
 209-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/Ryan/.gradle/caches/transforms-3/5d9083683aa46ad6646ca7a884bd56df/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:26:13-68
 210            android:exported="false" >
 210-->[androidx.lifecycle:lifecycle-process:2.7.0] /Users/Ryan/.gradle/caches/transforms-3/5d9083683aa46ad6646ca7a884bd56df/transformed/jetified-lifecycle-process-2.7.0/AndroidManifest.xml:27:13-37

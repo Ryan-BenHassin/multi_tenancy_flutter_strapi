@@ -34,7 +34,7 @@ class AuthService {
 
   Future<User> getCompleteUserData() async {
     try {
-      final userData = await _httpClient.get('$baseUrl/users/me?populate=*');
+      final userData = await _httpClient.get('$baseUrl/users/me');
       print('Complete user data: $userData'); // For debugging
       final user = User.fromJson(userData);
       UserProvider.user = user;

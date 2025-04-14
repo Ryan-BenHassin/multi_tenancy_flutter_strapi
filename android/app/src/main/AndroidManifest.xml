@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
-        android:label="multi_user"
+        android:label="mapbox_first"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:multi_user/screens/auth/complete_profile_screen.dart';
+import 'package:mapbox_first/screens/auth/complete_profile_screen.dart';
 import '../../main.dart';
 import 'signup_screen.dart';
 import '../../services/auth_service.dart';
 import '../../utils/showFlushbar.dart';
+import '../pending_approval_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,10 +31,11 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         
         // Then get complete user data including doctor/patient profiles
-        final user = await _authService.getCompleteUserData();
+        final user = await _authService.getCompleteUserData(); // fetch user from /users/me
         
         if (!mounted) return;
 
+        // Check for incomplete profile
         if ((user.roleType == 'DOCTOR' && user.doctor == null) ||
             (user.roleType == 'PATIENT' && user.patient == null)) {
           Navigator.pushReplacement(
@@ -45,12 +47,26 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           );
-        } else {
+          return;
+        }
+
+        // Check if doctor is approved
+        if (user.roleType == 'DOCTOR' && 
+            user.doctor != null && 
+            user.doctor!['isApproved'] == false) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const MyHomePage()),
+            MaterialPageRoute(
+              builder: (context) => const PendingApprovalScreen(),
+            ),
           );
+          return;
         }
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomePage()),
+        );
       } catch (e) {
         if (!mounted) return;
         showFlushBar(context, message: 'Failed to login', success: false);
