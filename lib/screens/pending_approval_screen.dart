@@ -39,7 +39,7 @@ class PendingApprovalScreen extends StatelessWidget {
               ),
               SizedBox(height: 12),
               Text(
-                'Please wait while we verify your credentials. You will be notified once approved.',
+                'Please wait while we verify your credentials.\nYou will be notified once approved.',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
                 textAlign: TextAlign.center,
               ),

@@ -3,6 +3,7 @@ import '../../services/auth_service.dart';
 import '../../main.dart';
 import '../../utils/showFlushbar.dart';
 import 'login_screen.dart';
+import '../pending_approval_screen.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   final int userId;
@@ -35,6 +36,12 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           userId: widget.userId,
           speciality: _specialityController.text,
         );
+
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const PendingApprovalScreen()),
+        );
       } else {
         if (_birthdate == null) {
           showFlushBar(
@@ -49,21 +56,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           userId: widget.userId,
           birthdate: _birthdate!,
         );
+
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomePage()),
+        );
       }
-
-      showFlushBar(
-        context,
-        message: 'Profile completed successfully',
-        success: true,
-      );
-
-      await Future.delayed(const Duration(seconds: 1));
-      if (!mounted) return;
-      
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const MyHomePage()),
-      );
     } catch (e) {
       showFlushBar(
         context,

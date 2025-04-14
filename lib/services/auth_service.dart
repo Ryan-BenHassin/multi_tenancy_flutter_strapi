@@ -34,7 +34,7 @@ class AuthService {
 
   Future<User> getCompleteUserData() async {
     try {
-      final userData = await _httpClient.get('$baseUrl/users/me');
+      final userData = await _httpClient.get('$baseUrl/users/me?populate=*');
       print('Complete user data: $userData'); // For debugging
       final user = User.fromJson(userData);
       UserProvider.user = user;
@@ -129,7 +129,7 @@ class AuthService {
     }
 
     try {
-      final response = await _httpClient.get('$baseUrl/users/me?populate=doctor,patient');
+      final response = await _httpClient.get('$baseUrl/users/me?populate=*');
       print('Current user response: $response'); // For debugging
       final user = User.fromJson(response);
       UserProvider.user = user;
