@@ -5,6 +5,7 @@
 .packages
 .pub-cache/
 .pub/
+.build/
 build/
 **/build/
 **/build/*
@@ -19,12 +20,40 @@ ios/Pods/
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
 
+# Flutter/Dart specifics
+pubspec.lock
+.flutter-plugins-dependencies
+.flutter-plugins
+.packages
+.pub/
+.dart_tool/
+
+# Coverage
+coverage/
+*.lcov
+test/coverage_helper_test.dart
+
+# Mason
+.mason/
+mason-lock.json
+
+# FVM
+.fvm/flutter_sdk
+
 # IDE
 .idea/
 .vscode/
+.history/
+*.code-workspace
 *.iml
 *.iws
-.DS_Store
+*.ipr
+.gradle/
+
+# Temporary files
+*.swp
+*.swo
+*~
 
 # Firebase
 lib/firebase_options.dart
@@ -39,6 +68,7 @@ lib/firebase_options.dart
 
 # Android
 **/android/**/gradle-wrapper.jar
+*.log
 **/android/.gradle
 **/android/captures/
 **/android/gradlew
