@@ -2,6 +2,11 @@ import 'auth_service.dart';
 import 'http_client.dart';
 
 class BookingService {
+  static const String STATUS_PENDING = 'PENDING';
+  static const String STATUS_CONFIRMED = 'CONFIRMED';
+  static const String STATUS_CANCELED = 'CANCELED';
+  static const String STATUS_REJECTED = 'REJECTED';
+
   final _httpClient = HttpClient();
 
   Future<List<DateTime>> fetchAvailableDatetimes(String officeId) async {
@@ -12,7 +17,7 @@ class BookingService {
 
   Future<bool> createReservation({
     required int userID,
-    required int officeId,
+    required String officeId,
     required DateTime dateTime
   }) async {
     try {
@@ -53,6 +58,38 @@ class BookingService {
       return true;
     } catch (e) {
       print('Error canceling reservation: $e');
+      return false;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchDoctorBookings(String doctorId) async {
+    try {
+      final response = await _httpClient.get(
+        '${AuthService.baseUrl}/appointments?populate=*&filters[office][doctor][documentId][\$eq]=$doctorId'
+      );
+      
+      if (response['data'] == null) return [];
+      
+      return List<Map<String, dynamic>>.from(response['data']);
+    } catch (e) {
+      print('Error fetching doctor appointments: $e');
+      return [];
+    }
+  }
+
+  Future<bool> updateAppointmentStatus(String appointmentId, String status) async {
+    try {
+      await _httpClient.put(
+        '${AuthService.baseUrl}/appointments/$appointmentId',
+        body: {
+          'data': {
+            'status_appointment': status
+          }
+        },
+      );
+      return true;
+    } catch (e) {
+      print('Error updating appointment status: $e');
       return false;
     }
   }

@@ -4,7 +4,7 @@ import '../../main.dart';
 import 'signup_screen.dart';
 import '../../services/auth_service.dart';
 import '../../utils/showFlushbar.dart';
-import '../pending_approval_screen.dart';
+import 'pending_approval_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -3,7 +3,7 @@ import '../../services/auth_service.dart';
 import '../../main.dart';
 import '../../utils/showFlushbar.dart';
 import 'login_screen.dart';
-import '../pending_approval_screen.dart';
+import 'pending_approval_screen.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   final int userId;

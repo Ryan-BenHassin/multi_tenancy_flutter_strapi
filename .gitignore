@@ -3,27 +3,21 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-<<<<<<< HEAD
 .pub-cache/
 .pub/
 build/
+**/build/
+**/build/*
+build/*
+*.apk
+*.apk.sha1
+*.dill
+*.dill.track.dill
+**/intermediates/
+**/outputs/
 ios/Pods/
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
-=======
-build/
-*.dill
-*.dill.track.dill
-*.apk
-*.apk.sha1
-*.properties
-
-# Build artifacts
-**/build/
-**/intermediates/
-**/outputs/
-**/generated/
->>>>>>> messaging
 
 # IDE
 .idea/
@@ -32,7 +26,6 @@ build/
 *.iws
 .DS_Store
 
-<<<<<<< HEAD
 # Firebase
 lib/firebase_options.dart
 
@@ -44,23 +37,14 @@ lib/firebase_options.dart
 # Env files
 .env*
 
-=======
->>>>>>> messaging
 # Android
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
-<<<<<<< HEAD
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
-=======
-**/android/local.properties
-**/android/**/GeneratedPluginRegistrant.java
-**/android/intermediates/
-**/android/outputs/
->>>>>>> messaging
 
 # iOS
 **/ios/**/*.mode1v3
@@ -79,19 +63,6 @@ lib/firebase_options.dart
 **/ios/**/profile
 **/ios/**/xcuserdata
 **/ios/.generated/
-<<<<<<< HEAD
-**/ios/Flutter/.last_build_id
-**/ios/Flutter/App.framework
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/Flutter.podspec
-**/ios/Flutter/Generated.xcconfig
-**/ios/Flutter/ephemeral
-**/ios/Flutter/app.flx
-**/ios/Flutter/app.zip
-**/ios/Flutter/flutter_assets/
-**/ios/ServiceDefinitions.json
-**/ios/Runner/GeneratedPluginRegistrant.*
-=======
 **/ios/Flutter/App.framework
 **/ios/Flutter/Flutter.framework
 **/ios/Flutter/Generated.xcconfig
@@ -110,4 +81,3 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
->>>>>>> messaging

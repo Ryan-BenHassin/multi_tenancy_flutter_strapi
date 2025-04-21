@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../services/chat_service.dart';
 import '../../providers/user_provider.dart';
-import 'widgets/message_bubble.dart';
+import 'utils/message_bubble.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final String userId;

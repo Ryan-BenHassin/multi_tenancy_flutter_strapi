@@ -14,13 +14,21 @@ class HttpClient {
   }
 
   Future<dynamic> get(String url) async {
-    final headers = await _getHeaders();
-    final response = await http.get(Uri.parse(url), headers: headers);
-    
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
+    try {
+      final headers = await _getHeaders();
+      final response = await http.get(Uri.parse(url), headers: headers);
+      
+      print('Response for $url: ${response.body}'); // Debug print
+      
+      if (response.statusCode == 200) {
+        final decoded = json.decode(response.body);
+        return decoded ?? {};
+      }
+      throw Exception('Request failed with status: ${response.statusCode}');
+    } catch (e) {
+      print('HTTP GET Error: $e');
+      return {};
     }
-    throw Exception('Request failed with status: ${response.statusCode}');
   }
 
   Future<dynamic> post(String url, {Map<String, dynamic>? body}) async {
